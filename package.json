@@ -1,0 +1,48 @@
+{
+    "name": "singlepage-app",
+    "version": "0.1.0",
+    "description": "Single Page App with React",
+    "author": "Pavan Ratnakar <pavanratnakar@gmail.com>",
+    "main": "app.js",
+    "dependencies": {
+        "express": "*",
+        "express-handlebars": "*",
+        "fs-extra": "*",
+        "compression": "*",
+        "lodash": "*",
+        "async": "*",
+        "path": "*",
+        "env": "*",
+        "react": "*",
+        "node-jsx": "*"
+    },
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-cli": "*",
+        "grunt-contrib-clean": "^0.6.0",
+        "grunt-contrib-concat": "^0.5.0",
+        "grunt-contrib-copy": "^0.7.0",
+        "grunt-contrib-jshint": "^0.10.0",
+        "grunt-contrib-uglify": "^0.6.0",
+        "grunt-contrib-cssmin": "*",
+        "grunt-contrib-less": "^0.12.0",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-execute": "^0.2.2",
+
+        "reactify": "*",
+
+        "eslint": "*",
+        "eslint-grunt": "^0.6.1"
+    },
+    "scripts": {
+        "test": ""
+    },
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "bugs": {
+        "url": ""
+    },
+    "homepage": ""
+}

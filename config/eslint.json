@@ -1,0 +1,14 @@
+{
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "globals": {
+        "$": false,
+        "jQuery": false,
+        "Handlebars": false
+    },
+    "rules": {
+        "no-underscore-dangle": false
+    }
+}
