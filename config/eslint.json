@@ -1,4 +1,5 @@
 {
+    "parser": "esprima",
     "env": {
         "browser": true,
         "node": true
@@ -10,5 +11,8 @@
     },
     "rules": {
         "no-underscore-dangle": false
+    },
+    "ecmaFeatures": {
+        "jsx": true
     }
 }
