@@ -20,13 +20,12 @@ module.exports = ReactApp = React.createClass({
     },
 
     // Called directly after component rendering, only on client
-    componentDidMount: function(){},
+    componentDidMount: function () {},
 
     // Render the component
-    render: function(){
+    render: function () {
 
-        // return (<div className="react-app"></div>)
-
+        return 
     }
 
 });

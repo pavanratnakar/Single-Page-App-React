@@ -31,6 +31,7 @@
         "reactify": "*",
 
         "eslint": "*",
+        "eslint@es6jsx": "*",
         "eslint-grunt": "^0.6.1"
     },
     "scripts": {

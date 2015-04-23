@@ -13,6 +13,7 @@
         "no-underscore-dangle": false
     },
     "ecmaFeatures": {
+        "ecmascript": 6,
         "jsx": true
     }
 }
