@@ -6,7 +6,7 @@
     "main": "app.js",
     "dependencies": {
         "express": "*",
-        "express-handlebars": "*",
+        "express3-handlebars": "*",
         "fs-extra": "*",
         "compression": "*",
         "lodash": "*",

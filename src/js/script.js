@@ -66,11 +66,11 @@ jQuery(function($) {
 
     // CONSTRUCT ALL PRODUCT HTML
     // USED ONLY FIRST TIME
-    function generateAllProductsHTML (data) {
-        var list = $(".all-products .products-list"),
-            template = Handlebars.compile($("#products-template").html());
+    function generateAllProductsHTML (/*data*/) {
+        var list = $(".all-products .products-list");
+            // template = Handlebars.compile($("#products-template").html());
 
-        list.append(template(data));
+        // list.append(template(data));
         list.delegate("li", "click", function (e) {
             e.preventDefault();
 

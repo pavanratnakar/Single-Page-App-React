@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'tests/less/style_less.min.css': 'src/less/style_less.less'
+                    'tests/less/style_less.min.css': 'src/less/style.less'
                 }
             }
         },
