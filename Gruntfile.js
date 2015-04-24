@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                 transform: [ require("grunt-react").browserify ]
             },
             client: {
-                src: ["compoents/*.jsx"],
+                src: ["components/*.jsx", "src/js/script.js"],
                 dest: "dist/react/bundle.js"
             }
         },
@@ -47,26 +47,11 @@ module.exports = function(grunt) {
         eslint: {
             all: [
                 "gruntfile.js",
-                "src/js/*.js",
                 "lib/*.js",
                 "app.js"
             ],
             options: {
                 config: "config/eslint.json"
-            }
-        },
-
-        uglify: {
-            options: {
-                mangle: true,  // false when debugging
-                compress: true,  // false when debugging
-                sourceMap: false,
-                preserveComments: "some"
-            },
-            js: {
-                files: {
-                    "dist/combo.min.js": ["src/js/script.js"]
-                }
             }
         },
 
@@ -141,7 +126,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("eslint-grunt");
-    grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-watch");
@@ -154,7 +138,6 @@ module.exports = function(grunt) {
         "less:minified",
         "browserify",
         "eslint",
-        "uglify",
         "cssmin",
         "copy",
         "less:test",
