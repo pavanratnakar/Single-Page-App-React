@@ -55,29 +55,12 @@ module.exports = function(grunt) {
             }
         },
 
-        cssmin: {
-            target: {
-                files: [{
-                    expand: true,
-                    cwd: "src/css",
-                    src: ["*.css", "!*.min.css"],
-                    dest: "dist",
-                    ext: ".min.css"
-                }]
-            }
-        },
         // Copy to dist
         copy: {
             js: {
                 expand: true,
                 cwd: "src/js",
                 src: "*.js",
-                dest: "dist/"
-            },
-            css: {
-                expand: true,
-                cwd: "src/css",
-                src: "*.css",
                 dest: "dist/"
             },
             docs: {
@@ -126,7 +109,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("eslint-grunt");
-    grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-execute");
@@ -138,7 +120,6 @@ module.exports = function(grunt) {
         "less:minified",
         "browserify",
         "eslint",
-        "cssmin",
         "copy",
         "less:test",
         "execute:test",
