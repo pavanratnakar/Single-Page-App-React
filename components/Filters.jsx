@@ -17,19 +17,23 @@ var Filters = React.createClass({
     },
 
     render: function () {
-        // var categories = _.forEach(this.props.categories, function (category) {
-        //     console.log(category);
-        //     return (
-        //         <label><input onClick={this.filterClickHandler} type="checkbox" name="category" value={category.name} />{category.title}</label>
-        //     )
-        // });
+        var t = this,
+            checked;
+
+        var categories = t.props.categories.map(function (category, index) {
+            checked = category.value;
+            return (
+                <label><input onClick={t.filterClickHandler} type="checkbox" name="category" value={category.name} checked={checked} />{category.title}</label>
+            )
+        });
         return (
             <div className="filters">
                 <form>
                     <div className="filter-criteria">
                         <span>Category</span>
+                        {categories}
                     </div>
-                    <button onClick={this.resetClickHandler}>Clear filters</button>
+                    <button onClick={t.resetClickHandler}>Clear filters</button>
                 </form>
             </div>
         )

@@ -22,6 +22,16 @@ var ReactApp = React.createClass({
         page.addClass("visible");
     },
 
+    // RESET CATEGORIES
+    resetCategories: function () {
+        this.setState({
+            categories: this.state.categories.map(function (category) {
+                category.value = false;
+                return category;
+            })
+        })
+    },
+
     // RENDER ALL PRODUCTS
     renderProductsPage: function (products) {
         var page = $(".all-products"),
@@ -58,7 +68,6 @@ var ReactApp = React.createClass({
         var t = this,
             results = [];
 
-        // checkboxes.prop("checked", false);
         $.each(t.state.filters, function (index, filter) {
             t.props.products.forEach(function (product) {
                 if (product[index] && filter.indexOf(product[index]) !== -1) {
@@ -110,16 +119,18 @@ var ReactApp = React.createClass({
         // Set initial application state using props
         return {
             filters: {},
-            categories: {
-                nature: {
+            categories: [
+                {
+                    name: 'nature',
                     value: false,
                     title: 'Nature'
                 },
-                people: {
+                {
+                    name: 'people',
                     value: false,
                     title: 'People'
                 }
-            }
+            ]
         };
 
     },
@@ -174,6 +185,7 @@ var ReactApp = React.createClass({
     },
 
     reset: function () {
+        this.resetCategories();
         window.location.hash = "#";
     },
 

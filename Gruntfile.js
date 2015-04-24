@@ -4,6 +4,7 @@ var fs = require("fs");
 
 module.exports = function(grunt) {
     grunt.initConfig({
+
         less: {
             build: {
                 options: {},
@@ -39,7 +40,7 @@ module.exports = function(grunt) {
                 transform: [require("grunt-react").browserify]
             },
             client: {
-                src: ["components/*.jsx", "src/js/script.js"],
+                src: ["components/*.jsx", "build/lodash.build.min.js", "src/js/script.js"],
                 dest: "dist/react/bundle.js"
             }
         },
