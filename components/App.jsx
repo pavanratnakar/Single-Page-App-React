@@ -58,7 +58,7 @@ var ReactApp = React.createClass({
         var t = this,
             results = [];
 
-        checkboxes.prop("checked", false);
+        // checkboxes.prop("checked", false);
         $.each(t.state.filters, function (index, filter) {
             t.props.products.forEach(function (product) {
                 if (product[index] && filter.indexOf(product[index]) !== -1) {
@@ -82,23 +82,23 @@ var ReactApp = React.createClass({
                 "#product": function () {
                     var index = url.split("#product/")[1].trim();
 
-                    renderSingleProduct(index);
+                    t.renderSingleProduct(index);
                 },
                 "#filters": function () {
                     try {
-                        this.state.filters = JSON.parse(url.split("#filters/")[1]);
+                        t.state.filters = JSON.parse(url.split("#filters/")[1]);
                     } catch (err) {
                         window.location.hash = "#";
                         return;
                     }
-                    renderFilteredProducts(t.state.filters, t.props.products);
+                    t.renderFilteredProducts(t.state.filters, t.props.products);
                 }
             };
 
         if (mapping[section]) {
             mapping[section]();
         } else {
-            renderError();
+            t.renderError();
         }
     },
 
@@ -109,7 +109,17 @@ var ReactApp = React.createClass({
 
         // Set initial application state using props
         return {
-            filters: {}
+            filters: {},
+            categories: {
+                nature: {
+                    value: false,
+                    title: 'Nature'
+                },
+                people: {
+                    value: false,
+                    title: 'People'
+                }
+            }
         };
 
     },
@@ -129,11 +139,53 @@ var ReactApp = React.createClass({
         $(window).trigger("hashchange");
     },
 
+    productChange: function (index) {
+        window.location.hash = "product/" + index;
+    },
+
+    filterChange: function (specName, checked, val) {
+        var t = this;
+
+        // When a checkbox is checked we need to write that in the filters object;
+        if (checked) {
+            // If the filter for this specification isn't created yet - do it.
+            if (!(t.state.filters[specName] && t.state.filters[specName].length)) {
+                t.state.filters[specName] = [];
+            }
+            //  Push values into the chosen filter array
+            t.state.filters[specName].push(val);
+            // Change the url hash;
+            t.createQueryHash(t.state.filters);
+        } else {
+            if (t.state.filters[specName] && t.state.filters[specName].length && (t.state.filters[specName].indexOf(val) !== -1)) {
+                // Find the checkbox value in the corresponding array inside the filters object.
+                var index = t.state.filters[specName].indexOf(t.val);
+                // Remove it.
+                t.state.filters[specName].splice(index, 1);
+                // If it was the last remaining value for this specification,
+                // delete the whole array.
+                if (!t.state.filters[specName].length) {
+                    delete t.state.filters[specName];
+                }
+            }
+            // Change the url hash;
+            t.createQueryHash(t.state.filters);
+        }
+    },
+
+    reset: function () {
+        window.location.hash = "#";
+    },
+
+    overlayClose: function () {
+        this.createQueryHash(this.state.filters);
+    },
+
     render: function () {
         return (
             <div className="main-content">
-                <Products products={this.props.products} />
-                <Overlay />
+                <Products categories={this.state.categories} products={this.props.products} productChange={this.productChange} filterChange={this.filterChange} filterReset={this.reset} />
+                <Overlay onClose={this.overlayClose} />
                 <Error />
             </div>
         )

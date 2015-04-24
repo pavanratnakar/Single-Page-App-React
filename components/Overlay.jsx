@@ -2,6 +2,12 @@ var React = require('react');
 
 // Export the ReactApp component
 var Overlay = React.createClass({
+
+    closeClickHandler: function (e) {
+        e.preventDefault();
+        this.props.onClose();
+    },
+
     render: function () {
         return (
             <div className="single-product page">
@@ -9,7 +15,7 @@ var Overlay = React.createClass({
                 <div className="preview-large">
                     <h3>Single product view</h3>
                     <img src=""/>
-                    <span className="close">×</span>
+                    <span className="close" onClick={this.closeClickHandler}>×</span>
                 </div>
             </div>
         )
