@@ -34,6 +34,16 @@ module.exports = function(grunt) {
             }
         },
 
+        browserify: {
+            options: {
+                transform: [ require("grunt-react").browserify ]
+            },
+            client: {
+                src: ["compoents/*.jsx"],
+                dest: "dist/react/bundle.js"
+            }
+        },
+
         eslint: {
             all: [
                 "gruntfile.js",
@@ -118,6 +128,10 @@ module.exports = function(grunt) {
             },
             grunt: {
                 files: ["Gruntfile.js"]
+            },
+            jsx: {
+                files: ["components/**/*.jsx"],
+                tasks: ["browserify"]
             }
         }
     });
@@ -125,6 +139,7 @@ module.exports = function(grunt) {
     // Load module
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-less");
+    grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("eslint-grunt");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
@@ -137,6 +152,7 @@ module.exports = function(grunt) {
     grunt.registerTask("build", [
         "less:build",
         "less:minified",
+        "browserify",
         "eslint",
         "uglify",
         "cssmin",

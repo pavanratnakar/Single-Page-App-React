@@ -1,19 +1,24 @@
 {
-    "parser": "esprima",
+    "parser": "babel-eslint",
     "env": {
         "browser": true,
         "node": true
     },
+    "plugins": [
+        "react"
+    ],
     "globals": {
         "$": false,
         "jQuery": false,
         "Handlebars": false
     },
     "rules": {
-        "no-underscore-dangle": false
+        "no-underscore-dangle": false,
+        "semi": 2
     },
     "ecmaFeatures": {
-        "ecmascript": 6,
+        "blockBindings": true,
+        "forOf": true,
         "jsx": true
     }
 }
