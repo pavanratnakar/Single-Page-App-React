@@ -1,7 +1,5 @@
 "use strict";
 
-var fs = require("fs");
-
 module.exports = function(grunt) {
     grunt.initConfig({
 
@@ -19,29 +17,6 @@ module.exports = function(grunt) {
                 files: {
                     "dist/style_less.min.css": "src/less/style.less"
                 }
-            },
-            // re-minify everything in tests/ so that they all
-            // have the same minification for comparision
-            test: {
-                options: {
-                    cleancss: true,
-                    cleancssOptions: {
-                        keepSpecialComments: "0"
-                    }
-                },
-                files: {
-                    "tests/less/style_less.min.css": "src/less/style.less"
-                }
-            }
-        },
-
-        browserify: {
-            options: {
-                transform: [require("grunt-react").browserify]
-            },
-            client: {
-                src: ["components/*.jsx", "build/lodash.build.min.js", "src/js/script.js"],
-                dest: "dist/react/bundle.js"
             }
         },
 
@@ -49,10 +24,24 @@ module.exports = function(grunt) {
             all: [
                 "gruntfile.js",
                 "lib/*.js",
-                "app.js"
+                "components/*.jsx",
+                "app.js",
+                "src/*/*.js",
+                "app.js",
+                "Gruntfile.js"
             ],
             options: {
                 config: "config/eslint.json"
+            }
+        },
+
+        browserify: {
+            options: {
+              transform: [["babelify", { "stage": 2 }]]
+            },
+            client: {
+                src: ["components/*.jsx", "build/lodash.build.min.js", "src/js/script.js"],
+                dest: "dist/react/bundle.js"
             }
         },
 
@@ -63,27 +52,7 @@ module.exports = function(grunt) {
                 cwd: "src/js",
                 src: "*.js",
                 dest: "dist/"
-            },
-            docs: {
-                expand: true,
-                cwd: "dist",
-                src: ["*.min.js"],
-                dest: "docs/static"
             }
-        },
-
-        //convert less to stylus
-        execute: {
-            test: {
-                call: function(grunt, options, async) {
-                    var done = async();
-                    done();
-                }
-            }
-        },
-
-        clean: {
-            test: ["tests/*"]
         },
 
         watch: {
@@ -102,30 +71,42 @@ module.exports = function(grunt) {
                 files: ["components/**/*.jsx"],
                 tasks: ["browserify"]
             }
+        },
+
+        nodemon: {
+            dev: {
+                script: "app.js"
+            }
+        },
+
+        concurrent: {
+            dev: {
+                tasks: ["build", "nodemon:dev", "watch"],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
         }
+
     });
 
     // Load module
-    grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("eslint-grunt");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-watch");
-    grunt.loadNpmTasks("grunt-execute");
-    grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-concurrent");
+    grunt.loadNpmTasks("grunt-nodemon");
 
     // Create grunt task
     grunt.registerTask("build", [
         "less:build",
         "less:minified",
-        "browserify",
         "eslint",
-        "copy",
-        "less:test",
-        "execute:test",
-        "clean:test"
+        "browserify",
+        "copy"
     ]);
 
-    grunt.registerTask("default", ["build", "watch"]);
+    grunt.registerTask("dev", ["concurrent:dev"]);
 };

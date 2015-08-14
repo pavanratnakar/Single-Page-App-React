@@ -1,4 +1,6 @@
-var React = require('react');
+"use strict";
+
+var React = require("react");
 
 // Export the ReactApp component
 var Filters = React.createClass({
@@ -23,8 +25,11 @@ var Filters = React.createClass({
         var categories = t.props.categories.map(function (category, index) {
             checked = category.value;
             return (
-                <label><input onClick={t.filterClickHandler} type="checkbox" name="category" value={category.name} checked={checked} />{category.title}</label>
-            )
+                <label key={"label" + index}>
+                    <input onChange={t.filterClickHandler} type="checkbox" name="category" value={category.name} checked={checked} />
+                    {category.title}
+                </label>
+            );
         });
         return (
             <div className="filters">
@@ -36,7 +41,7 @@ var Filters = React.createClass({
                     <button onClick={t.resetClickHandler}>Clear filters</button>
                 </form>
             </div>
-        )
+        );
     }
 });
 

@@ -1,4 +1,6 @@
-var React = require('react');
+"use strict";
+
+var React = require("react");
 
 // Export the ReactApp component
 var Overlay = React.createClass({
@@ -18,7 +20,7 @@ var Overlay = React.createClass({
                     <span className="close" onClick={this.closeClickHandler}>×</span>
                 </div>
             </div>
-        )
+        );
     }
 });
 

@@ -1,7 +1,9 @@
-var React = require('react'),
-    Products = require('./Products.jsx'),
-    Overlay = require('./Overlay.jsx');
-    Error = require('./Error.jsx');
+"use strict";
+
+var React = require("react"),
+    Products = require("./Products.jsx"),
+    Overlay = require("./Overlay.jsx"),
+    ErrorComponent = require("./Error.jsx");
 
 // Export the ReactApp component
 var ReactApp = React.createClass({
@@ -29,7 +31,7 @@ var ReactApp = React.createClass({
                 category.value = false;
                 return category;
             })
-        })
+        });
     },
 
     // RENDER ALL PRODUCTS
@@ -121,21 +123,21 @@ var ReactApp = React.createClass({
             filters: {},
             categories: [
                 {
-                    name: 'nature',
+                    name: "nature",
                     value: false,
-                    title: 'Nature'
+                    title: "Nature"
                 },
                 {
-                    name: 'people',
+                    name: "people",
                     value: false,
-                    title: 'People'
+                    title: "People"
                 }
             ]
         };
 
     },
 
-    componentWillReceiveProps: function (newProps, oldProps) {
+    componentWillReceiveProps: function (newProps) {
         this.setState(this.getInitialState(newProps));
     },
 
@@ -182,6 +184,14 @@ var ReactApp = React.createClass({
             // Change the url hash;
             t.createQueryHash(t.state.filters);
         }
+        t.setState({
+            categories: t.state.categories.map(function (category) {
+                if (category.name === val) {
+                    category.value = checked;
+                }
+                return category;
+            })
+        });
     },
 
     reset: function () {
@@ -198,9 +208,9 @@ var ReactApp = React.createClass({
             <div className="main-content">
                 <Products categories={this.state.categories} products={this.props.products} productChange={this.productChange} filterChange={this.filterChange} filterReset={this.reset} />
                 <Overlay onClose={this.overlayClose} />
-                <Error />
+                <ErrorComponent />
             </div>
-        )
+        );
     }
 });
 
