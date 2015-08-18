@@ -22,12 +22,12 @@ var Filters = React.createClass({
 
         var categories = t.props.categories.map(function (category, index) {
             var inputProps = {
-                name: 'category',
-                type: 'checkbox',
+                name: "category",
+                type: "checkbox",
                 value: category.name
             };
             if (category.value) {
-                inputProps.checked = 'checked';
+                inputProps.checked = "checked";
             }
             return (
                 <label key={"label" + index}>
