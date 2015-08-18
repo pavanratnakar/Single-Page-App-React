@@ -6,7 +6,6 @@ var React = require("react");
 var Filters = React.createClass({
 
     filterClickHandler: function (e) {
-        e.preventDefault();
         var node = $(e.currentTarget);
 
         this.props.filterChange(node.attr("name"), node.is(":checked"), node.val());
@@ -19,14 +18,20 @@ var Filters = React.createClass({
     },
 
     render: function () {
-        var t = this,
-            checked;
+        var t = this;
 
         var categories = t.props.categories.map(function (category, index) {
-            checked = category.value;
+            var inputProps = {
+                name: 'category',
+                type: 'checkbox',
+                value: category.name
+            };
+            if (category.value) {
+                inputProps.checked = 'checked';
+            }
             return (
                 <label key={"label" + index}>
-                    <input onChange={t.filterClickHandler} type="checkbox" name="category" value={category.name} checked={checked} />
+                    <input onChange={t.filterClickHandler} {...inputProps} />
                     {category.title}
                 </label>
             );

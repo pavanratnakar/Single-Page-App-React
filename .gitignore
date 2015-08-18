@@ -29,3 +29,4 @@ dist/
 
 # Apple stuff
 .DS_Store
+*.log
